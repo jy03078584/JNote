@@ -1,7 +1,7 @@
 #数据库DB
 
 ##行列转换
- - 列转行(max(case..when..then))
+- 列转行(max(case..when..then))
 
  ```sql
  select Student as '姓名',
@@ -13,7 +13,7 @@
 ```
 - 行转列(union all)
 
- ```sql
+```sql
 SELECT * FROM (
 SELECT name, "语文",  score FROM Tbl_Scores
 union all
