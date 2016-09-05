@@ -1,5 +1,5 @@
-# JNote
-记录一些java日常随笔
+# JNote：记录一些java日常随笔
+
 ##JVM
 ##Java基础
 ##并发
