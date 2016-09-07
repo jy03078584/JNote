@@ -39,6 +39,26 @@ public static int value = 123;
 public final static int value = 123;
 ```
 
+##[解析]
+- 类和接口解析
+- 字段解析
+- 类方法(static)解析
+- 接口方法解析
+
+
+##[初始化]
+【初始化】阶段是加载的最后阶段，是执行<client>()方法的过程,该过程中<client>()会收集类变量(static)和static代码块中语句对类变量进行赋值。
+
++ static块中语句能对变量的赋值没有顺序要求，**但只不能访问定义在static语句块后的变量**
+```java
+ static{
+	i = 0;//static中能对定义在static块后的变量赋值
+	System.out.println(i);//报错：static不能访问定义在static块后的变量
+}
+public static int i = 10;
+```
+
+
 <hr>
 
 ###类被加载的时机
