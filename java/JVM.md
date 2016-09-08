@@ -3,18 +3,18 @@
 
 [TOC]
 
-##JVM类加载机制
-###jvm类加载生命周期
+
+##jvm类加载生命周期
 【加载】——【验证】——【准备】——【解析】——【初始化】——【使用】——【卸载】
 
-##[加载]
+###[加载]
 * 通过类的全限定类名获取二进制字节流
 * 将字节流代表的静态存储结构转化为方法区的运行时数据结构
 * 在内存中生成java.lang.Class对象,作为方法区这个累的访问入口
 
 **对于数组对象，数组对象本身不依靠类加载器加载，但数组的元素对象则需要类加载器加载**
 
-##[验证]
+###[验证]
 >验证阶段能确保Class文件中的字节流符合JVM规范
 
 * 文件格式验证:
@@ -28,7 +28,7 @@
 **验证阶段不是必须的,对于已经使用多次能确保安全准确的代码可以考虑使用 -Xverify:none关闭验证**
 
 
-##[准备]
+###[准备]
 - 准备阶段为static变量(*实例变量实例化时在堆分配*)分配内存并设置初始值
 
 ```java
@@ -39,14 +39,14 @@ public static int value = 123;
 public final static int value = 123;
 ```
 
-##[解析]
+###[解析]
 - 类和接口解析
 - 字段解析
 - 类方法(static)解析
 - 接口方法解析
 
 
-##[初始化]
+###[初始化]
 【初始化】阶段是加载的最后阶段，是执行<client>()方法的过程,该过程中<client>()会收集类变量(static)和static代码块中语句对类变量进行赋值。
 
 + static块中语句能对变量的赋值没有顺序要求，**但只不能访问定义在static语句块后的变量**
@@ -58,10 +58,62 @@ public final static int value = 123;
 public static int i = 10;
 ```
 
+##类加载器
+* JVM依靠类加载器(ClassLoader)完成"通过一个类的全限定名来获取2进制字节流"的工作
+* 两个类是否相等：前提必须是在同一个ClassLoader加载的类
+* JVM类加载器采用双亲委派模型
+
+  - 双亲委派模型能保证Java程序的稳定性，安全性。避免加载恶意代码
+  - 实现双亲委派模型的代码在ClassLaoder.loadClass中实现。在实现自己的ClassLoader时为避免破坏双亲委派机制，JDK不提倡直接复写loadClass(),而是复写findClass()。
+```java
+  protected Class<?> loadClass(String name, boolean resolve)throws ClassNotFoundException
+    {
+        synchronized (getClassLoadingLock(name)) {
+            // 首先检查该类是否被父类加载过
+            Class c = findLoadedClass(name);
+            if (c == null) {
+                long t0 = System.nanoTime();
+                try {
+                    if (parent != null) {
+                        c = parent.loadClass(name, false);
+                    } else {
+                        c = findBootstrapClassOrNull(name);
+                    }
+                } catch (ClassNotFoundException e) {
+                	//父类加载该类抛出异常 则表明父类无法加载 
+                }
+
+                if (c == null) {
+                    long t1 = System.nanoTime();
+
+                    //无法被父类加载 则调用自己的findClass去加载该类
+                    c = findClass(name);
+
+                    // this is the defining class loader; record the stats
+                    sun.misc.PerfCounter.getParentDelegationTime().addTime(t1 - t0);
+                    sun.misc.PerfCounter.getFindClassTime().addElapsedTimeFrom(t1);
+                    sun.misc.PerfCounter.getFindClasses().increment();
+                }
+            }
+            if (resolve) {
+                resolveClass(c);
+            }
+            return c;
+        }
+    }
+```
+* JVM类加载器的种类
+  1. 启动类加载器(Bootstrap ClassLoader)：负责启动<JAVA_HOME>下能被JVM识别的类
+  2. 扩展类加载器(Extension ClassLoader): 负责加载ext下的类库 [可以被Developer扩展使用]
+  3. 程序类加载器(Application ClassLoader): 因为是getSystemClassLoader()的返回对象，也称系统类加载器，负责加载程序ClassPath下的类库。程序中默认使用的就是该类加载器
+
+
+
+
 
 <hr>
 
-###类被加载的时机
+##类被加载的时机
 
 **JVM规定有且只有以下5种情况，类才会被加载**
 
