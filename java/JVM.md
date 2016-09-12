@@ -48,7 +48,7 @@ public final static int value = 123;
 
 
 ###[初始化]
-【初始化】阶段是加载的最后阶段，是执行<client>()方法的过程,该过程中<client>()会收集类变量(static)和static代码块中语句对类变量进行赋值。
+【初始化】阶段是加载的最后阶段，是执行client()方法的过程,该过程中client()会收集类变量(static)和static代码块中语句对类变量进行赋值。
 
 + static块中语句能对变量的赋值没有顺序要求，**但只不能访问定义在static语句块后的变量**
 ```java
