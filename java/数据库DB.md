@@ -3,7 +3,7 @@
 ##行列转换
 - 列转行(max(case..when..then))
 
- ```sql
+```sql
  select Student as '姓名',
  max(case Subject when '语文' then Score else 0 end) as '语文' ,
  max(case Subject when '英语' then Score else 0 end ) as '英语'
@@ -23,7 +23,7 @@ SELECT name, "数学",  score FROM Tbl_Scores
 union all
 SELECT name, "英语", as score FROM Tbl_Scores
 ) tepTable
- ```
+```
 
 ##索引
 >详见: [美团技术Mysql索引原理](http://tech.meituan.com/mysql-index.html)
