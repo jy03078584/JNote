@@ -127,7 +127,7 @@ public static int i = 10;
 **以下情况不会初始化**
 
 * 子类调用父类的static字段只会初始化父类，并不会初始化子类:即只有直接定义static字段的类才会被初始化
-* MyClass[] mc = new MyClass[10]。new 数组的方式也不会初始化类，JVM会自动生成一个额外的类
+* MyClass[] mc = new MyClass[10]。new 数组的方式也不会初始化类，JVM会自动生成一个额外的代表数组的类
 * 在B类调用A类的final static字段，JVM会在编译阶段做优化，将A中的final static字段转存到B类中，则在调用时并不会初始化A类
 
 **类在初始化时要求父类全部初始化，接口则要求真正使用到父类接口时才会初始化**
