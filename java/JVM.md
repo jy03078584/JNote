@@ -103,6 +103,16 @@ public static int i = 10;
         }
     }
 ```
+
+* "破坏双亲委派模式"，双亲委派的加载模式能让JVM更加安全稳定，但有些场景下需要破坏这种模式。典型的Spring中类加载器采用的是线程上下文类加载器(Thread Context ClassLoader),通过这种方式Spring能使用子类构加载器加载类。
+```java
+//web项目中默认为WebAppClassLoader
+//因此无论Spring Jar放在Tomcat包下 还是web项目自己路径下 使用的都是同一个类加载器 
+//《深入理解Java虚拟机》第9章问题
+ ClassLoader ccl = Thread.currentThread().getContextClassLoader();
+```
+
+
 * JVM类加载器的种类
   1. 启动类加载器(Bootstrap ClassLoader)：负责启动<JAVA_HOME>下能被JVM识别的类
   2. 扩展类加载器(Extension ClassLoader): 负责加载ext下的类库 [可以被Developer扩展使用]
