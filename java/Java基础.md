@@ -104,3 +104,24 @@ System.out.pringln(i6 == (i1+i2));//true
 //包装器类型equals()会触发装箱
 System.out.println(i7.equals(i1+i2));//false。i1+i2：拆箱后运算20--->equals对20装箱---->20L与20比较
 ```
+
+##创建对象的4种方式
+* new关键字
+```java
+Object o = new Object()
+```
+* 反射机制
+```java 
+MyObject mo=(MyObject)Class.forName("Customer").newInstance(); 
+```
+* 对实现了Cloneable接口的类调用clone()克隆对象
+```java
+MyObject mo1 = new MyObject();
+MyObject mo2 = (MyObject)mo1.clone();
+```
+* 对于实现了Serializable的类进行反序列化
+```java
+ObjectInput oinput=new ObjectInputStream(new FileInputStream(filename));
+MyObject mo = (MyObject) oinput.readObject();
+```
+
