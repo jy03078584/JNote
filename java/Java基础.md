@@ -95,7 +95,7 @@ Integer i6 = 20;
 Long i7 = 20L;
 //==比较时 比较双方为封装类则比对象 否则比数字.若
 System.out.pringln(i1 == i2);//true
-System.out.pringln(i3 == i4);//false Integer有缓存机制(-128——127会使用缓存)
+System.out.pringln(i3 == i4);//false Integer有缓存机制(JVM针对Integer在-128——127会使用缓存)
 System.out.pringln(i1 == i5);//true
 
 //若==中某一边为表达式则会自动拆箱 比数字
