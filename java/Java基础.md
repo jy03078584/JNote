@@ -102,7 +102,9 @@ System.out.pringln(i1 == i5);//true
 System.out.pringln(i6 == (i1+i2));//true
 
 //包装器类型equals()会触发装箱
-System.out.println(i7.equals(i1+i2));//false。i1+i2：拆箱后运算20--->equals对20装箱---->20L与20比较
+//i1+i2：拆箱后运算20--->equals对20装箱---->20L与20比较
+//equals不会针对类型处理
+System.out.println(i7.equals(i1+i2));//false
 ```
 
 ##创建对象的4种方式
