@@ -6,6 +6,29 @@
 
 ***
 ###volatile
+* 保证变量线程间可见性(仅仅保证变量在线程间可见性，但volatile并不能保证原子性)
+* 阻止JVM指令重排序(JDK1.5前 单例模式DLC不可靠原因)
+```java
+//单例模型 DLC方式
+    class Singleton{
+        private volatile static   Singleton instance;
+        private Singleton(){}
+
+        public Singleton getInstance(){
+            if(instance == null){
+                synchonized(Singleton.class){
+                    if(instance == null){
+                        //new Singleton需要3步
+                        //1.内存开辟空间M;2.在M上构造Singleton [即调用构造器];3.将M内存赋值给instance变量
+                        //JVM指令重排序优化可能导致2、3指令错位。多线程下则会导致instance占有了内存但并未实例化Singleton对象
+                        instance = new Singleton();
+                    }
+                }
+            }
+            return instance;
+        }
+    } 
+```
 
 
 ***
