@@ -84,6 +84,43 @@ transient类型修饰符，用来修饰字段。用以表示被修饰的字段�
 - 匿名/局部类只能访问final的变量：内部类中访问的变量本质并非是原方法中的变量，而是一个拷贝。防止在多线程操作时外部类线程结束导致变量结束。但同时为了保证数据一致性因此需要用final修饰保证copy出来的变量数据可靠性。
 - 每个内部类都能独立实现一个接口，能在一定程度上处理Java多继承的尴尬
 	
+- 内部类一些特性
+```java
+public class InheritInner extends OutClass.Inner{
+    /**
+     * 继承一个内部类时 无参的构造函数会造成编译失败 只能提供带有外部类参数的构造函数
+     * 因为内部类Inner的构造器本身隐含携带一个外部类OutClass的引用this
+     * @param outClass
+     */
+    public InheritInner(OutClass outClass) {
+        outClass.super();
+    }
+}
+
+class OutClass {
+     public void test(){
+      //局部内部类可以有构造器 这是与匿名内部类最主要的区别
+        class Innder2{
+            public Innder2(){};
+         }
+     }
+     
+     public IInnerInterface test2(){
+         //匿名内部类
+         return new IInnerInterface() {
+             public void test3() {
+                 System.out.println("I'm Anonymous Inner Class");
+             }
+         };
+     }
+     
+     //普通内部类
+    class Inner{}
+    
+}
+interface IInnerInterface{ void test3();}
+
+```
 
 ##接口与抽象类
 >[摘自网络:http://www.cnblogs.com/dolphin0520/p/3811437.html](http://www.cnblogs.com/dolphin0520/p/3811437.html)
