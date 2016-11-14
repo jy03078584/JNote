@@ -190,6 +190,18 @@ System.out.pringln(i6 == (i1+i2));//true
 System.out.println(i7.equals(i1+i2));//false
 ```
 
+
+##类型信息
+*Java中能在运行时识别对象和类的信息，主要依靠两种方式：1.传统RTTI;2.反射*
+
+* RTTI(RunTimeTypeInfo)
+  * 传统RTTI是在编译阶段已经知道所有类型的情况下，“主动”的方式实现多态从而达到运行时识别对象和类的效果
+  * Class对象：Java中用来表示类信息的对象。Java中就是依靠Class对象来实现RTTI的
+    * 获得Class对象的方式：1：Class.forName("全类名")；2：XXX.class 【前者会初始化类，后者并不会初始化类】  
+    * 创建对象:Object object = Class.newInstance(); 使用newInstance能实现"虚拟构造器"。但**使用该方法的类必须带有默认构造器**
+    * Class对象能获取类的所有信息：getName()、getSimpleName()、getInterfaces()...
+ 
+
 ##创建对象的4种方式
 * new关键字
 ```java

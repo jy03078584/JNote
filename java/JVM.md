@@ -1,5 +1,8 @@
 #JVM
->摘要笔记：《深入理解Java虚拟机2》
+>摘要笔记:
+《深入理解Java虚拟机2》
+《Think in Java 4》
+
 
 [TOC]
 
@@ -153,6 +156,7 @@ public static int i = 10;
 * 在B类调用A类的final static字段，JVM会在编译阶段做优化，将A中的final static字段转存到B类中，则在调用时并不会初始化A类
 
 **类在初始化时要求父类全部初始化，接口则只要求真正使用到父类接口时才会初始化**
+
 
 <hr>
 ##JVM字节码执行引擎
