@@ -200,6 +200,13 @@ System.out.println(i7.equals(i1+i2));//false
     * 获得Class对象的方式：1：Class.forName("全类名")；2：XXX.class 【前者会初始化类，后者并不会初始化类】  
     * 创建对象:Object object = Class.newInstance(); 使用newInstance能实现"虚拟构造器"。但**使用该方法的类必须带有默认构造器**
     * Class对象能获取类的所有信息：getName()、getSimpleName()、getInterfaces()...
+
+* Reflect(反射机制)
+  * RTTI能告知一个对象的确切类型,但前提是这个类型在编译阶段必须已知。而反射则能绕过这个限制,使得Java能依靠反射机制完全在运行时确定类信息
+  * Java反射提供了Field、Method、Constructor等API。是的在运行时能动态获取类信息
+
+* RTTI和Reflect本质都是需要依赖Class对象。区别只是RTTI需要在编译阶段就打开和检查.class文件,而Reflect则是在运行时打开和检查.class文件 
+    
  
 
 ##创建对象的4种方式
