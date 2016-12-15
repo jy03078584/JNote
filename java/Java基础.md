@@ -229,3 +229,12 @@ ObjectInput oinput=new ObjectInputStream(new FileInputStream(filename));
 MyObject mo = (MyObject) oinput.readObject();
 ```
 
+* Java 对象由4个域构成：
+  * 对象头，表述 Object 当前状态的信息（普通对象占 8字节，数组占12字节）
+  * 基本类型（boolean、byte 占 1字节，char、short 占 2字节，int、float 占 4字节，long、double 占 8字节。
+  * 引用类型占 4字节
+  * 补足位，不足8的倍数的时候，自动补齐
+  * Example
+    * 一个空对象（没有声明任何变量）占 8字节（对象头占 8字节）
+    * 只声明了一个 boolean 类型变量的类，占用 16字节（对象头占 8字节，boolean 占 1字节，填充物占 7字节）
+    * 声明了 8个 boolean 类型变量的类，占用 16字节（对象头占 8字节，boolean 占 1字节 * 8
