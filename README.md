@@ -1,6 +1,6 @@
 # JNote：记录一些java日常随笔
 
-##JAVA
+## JAVA
 * JVM
 * Java基础
 * 并发
