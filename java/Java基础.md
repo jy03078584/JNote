@@ -1,11 +1,11 @@
-#Java基础
+# Java基础
 [TOC]
-##关键字
+## 关键字
 
 
 
 ***
-###volatile
+### volatile
 * 保证变量线程间可见性(仅仅保证变量在线程间可见性，但volatile并不能保证原子性)
     * JVM内存模型规定volatile变量修改后必须立即更新到主内存
     * JVM内存模型规定volatile变量在使用前必须先从主内存中刷新得到该变量的最新值
@@ -34,11 +34,11 @@
 
 
 ***
-###transient
+### transient
 transient类型修饰符，用来修饰字段。用以表示被修饰的字段不会被序列化。另一种方式是实现Serializable的子接口Externalizable(该方式过于繁琐，一般都使用transient)
 
 ***
-###static
+### static
 - 修饰变量:静态变量被所有的对象所共享，在内存中只有一个副本，它当且仅当在类初次加载时会被初始化。
 
 - 修饰方法:static方法一般称作静态方法，由于静态方法不依赖于任何对象就可以进行访问，因此对于静态方法来说，是没有this的，因为它不依附于任何对象
@@ -50,7 +50,7 @@ transient类型修饰符，用来修饰字段。用以表示被修饰的字段�
 - 静态导包 import static com.xxx.ClassName.*  在使用静态变量和方法时不用再指明ClassName，但可读性降低
 
 ***
-###final
+### final
 - 修饰类:表明这个类不能被继承。final类中的成员变量可以根据需要设为final，但是final类中的所有成员方法都会被隐式地指定为final方法
 
 - 修饰方法：第一个原因是把方法锁定，以防任何继承类修改它的含义；第二个原因是效率。在早期的Java实现版本中，会将final方法转为内嵌调用。但是如果方法过于庞大，可能看不到内嵌调用带来的任何性能提升。在最近的Java版本中，不需要使用final方法进行这些优化了，类的private方法隐式的被定义成final
@@ -66,7 +66,7 @@ transient类型修饰符，用来修饰字段。用以表示被修饰的字段�
 
 ***
 ***
-##内部类
+## 内部类
 - 成员内部类：最普通的内部类
 	Outer outer = new Outer();
 	Innter inner = outer.new Innter();
@@ -122,7 +122,7 @@ interface IInnerInterface{ void test3();}
 
 ```
 
-##接口与抽象类
+## 接口与抽象类
 >[摘自网络:http://www.cnblogs.com/dolphin0520/p/3811437.html](http://www.cnblogs.com/dolphin0520/p/3811437.html)
 
 * 抽象类：对事物类型的一种抽象
@@ -146,7 +146,7 @@ interface IInnerInterface{ void test3();}
 
 ***
 ***
-##传递方式
+## 传递方式
 java中值传递/引用传递在于看待方式
 
 - 对象就是传引用
@@ -165,7 +165,7 @@ java中值传递/引用传递在于看待方式
  
 ><<Effective Java>>作者解释：31是一个传统,也可以不适用31,但31可以通过移位来处理乘法操作从而获得性能上的提升,虚拟机会自动做优化
 
-##装箱拆箱
+## 装箱拆箱
 JDK5后提供装箱拆箱功能。
 装箱拆箱可简单理解为：装箱即将基本类型封装成封装类；拆箱即封装类转为基本类型
 装箱的本质是调用了XXX.valueOf()  【eg:Integer.valueOf(int)】
@@ -193,7 +193,7 @@ System.out.println(i7.equals(i1+i2));//false
 ```
 
 
-##类型信息
+## 类型信息
 *Java中能在运行时识别对象和类的信息，主要依靠两种方式：1.传统RTTI;2.反射*
 
 * RTTI(RunTimeTypeInfo)
@@ -211,7 +211,7 @@ System.out.println(i7.equals(i1+i2));//false
     
  
 
-##创建对象的4种方式
+## 创建对象的4种方式
 * new关键字
 ```java
 Object o = new Object()
