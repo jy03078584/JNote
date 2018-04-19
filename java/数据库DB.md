@@ -1,5 +1,12 @@
 # 数据库DB
 
+
+- 字段值互相替换 (leetCode题)
+> 将sex字段(只包含'f','m') 互相转换 即:f-->m  m-->m 借助XOR
+```sql
+update salary set sex = CHAR(ASCII('f') ^ ASCII('m') ^ ASCII(sex));
+```
+
 ## 行列转换
 - 列转行(max(case..when..then))
 
