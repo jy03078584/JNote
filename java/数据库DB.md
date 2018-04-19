@@ -4,7 +4,10 @@
 - 字段值互相替换 (leetCode题)
 > 将sex字段(只包含'f','m') 互相转换 即:f-->m  m-->m 借助XOR
 ```sql
+# xor
 update salary set sex = CHAR(ASCII('f') ^ ASCII('m') ^ ASCII(sex));
+# if func
+UPDATE salary SET sex = IF(sex='m','f','m');
 ```
 
 ## 行列转换
