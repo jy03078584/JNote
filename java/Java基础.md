@@ -240,3 +240,26 @@ MyObject mo = (MyObject) oinput.readObject();
     * 一个空对象（没有声明任何变量）占 8字节（对象头占 8字节）
     * 只声明了一个 boolean 类型变量的类，占用 16字节（对象头占 8字节，boolean 占 1字节，填充物占 7字节）
     * 声明了 8个 boolean 类型变量的类，占用 16字节（对象头占 8字节，boolean 占 1字节 * 8
+    
+- 利用Redis原子特性生成简单的顺序序列号
+```java
+private static final Format NO_SEQUENCE_FORMAT = new DecimalFormat("0000");
+// 生成格式:201904150001,201904150002
+private String generateNo(String keyPrefix) {
+		String nowDate = DateFormatUtils.format(new Date(), "yyyyMMdd");
+		String key= keyPrefix + nowDate;
+		Long sequence = getOrderSequence(key);
+		return nowDate + NO_SEQUENCE_FORMAT.format(sequence);
+	}
+
+private Long getOrderSequence(String key) {
+		RedisAtomicLong redisAtomicLong = new RedisAtomicLong(key, redisTemplate.getConnectionFactory());
+		Long increment = redisAtomicLong.getAndIncrement();
+		if (increment == 0) {
+			//设置过期时间（最完美过期时间应为当前距当天结束剩余时间，为方便此处直接设置1天）
+			redisAtomicLong.expire(1, TimeUnit.DAYS);
+			increment = redisAtomicLong.getAndIncrement();
+		}
+		return increment;
+	}
+```
