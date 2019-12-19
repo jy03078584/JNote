@@ -147,15 +147,11 @@ interface IInnerInterface{ void test3();}
 ***
 ***
 ## 传递方式
-java中值传递/引用传递在于看待方式
+java中只有值传递
+- 原始类型直接传递值
+- 对象类型传递对象引用地址的值
 
-- 对象就是传引用
-- 原始类型就是传值
-- String，Integer, Double等immutable类型因为没有提供自身修改的函数，每次操作都是新生成一个对象，所以要特殊对待。可以认为是传值。
-- Integer 和 String一样。保存value的类变量是final属性，无法被修改，只能被重新赋值／生成新的对象。 当Integer 做为方法参数传递进方法内时，对其的赋值都会导致 原Integer 的引用被 指向了方法内的栈地址，失去了对原类变量地址的指向。对赋值后的Integer对象做得任何操作，都不会影响原来对象。
-
-
-##String.hashCode()
+## String.hashCode()
 
  计算公式：*s[0]*31^(n-1) + s[1]*31^(n-2) + ... + s[n-1]* 【n:字符串长度】
  使用31做常量因子：31的2进制全为1，有利于离散数据。
@@ -231,15 +227,14 @@ ObjectInput oinput=new ObjectInputStream(new FileInputStream(filename));
 MyObject mo = (MyObject) oinput.readObject();
 ```
 
-* Java 对象由4个域构成：
+* Java 对象由3个域构成：
   * 对象头，表述 Object 当前状态的信息（普通对象占 8字节，数组占12字节）
-  * 基本类型（boolean、byte 占 1字节，char、short 占 2字节，int、float 占 4字节，long、double 占 8字节。
-  * 引用类型占 4字节
+    * Mark Word : 用于存储对象自身的运行时数据。`hashCode`,'GC分代年龄'、`锁标志`等
+    
+    * Class Point : 所属Class指针
+    * Array Length : 如果是数组,记录数组长度
+  * 对象体
   * 补足位，不足8的倍数的时候，自动补齐
-  * Example
-    * 一个空对象（没有声明任何变量）占 8字节（对象头占 8字节）
-    * 只声明了一个 boolean 类型变量的类，占用 16字节（对象头占 8字节，boolean 占 1字节，填充物占 7字节）
-    * 声明了 8个 boolean 类型变量的类，占用 16字节（对象头占 8字节，boolean 占 1字节 * 8
     
 - 利用Redis原子特性生成简单的顺序序列号
 ```java
